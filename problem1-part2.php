@@ -23,6 +23,7 @@ if($matches3){
 $output['GigabitEthernet2'] = substr($matches3[2], 0, strrpos($matches3[2], ' '));
 }
 
-var_dump($output);
+$myJSON = json_encode($output);
+var_dump($myJSON);
 
 ?>
