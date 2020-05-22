@@ -1,0 +1,206 @@
+Current configuration
+!
+!
+version 16.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname CSR1kV
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5
+enable password ubiqube1
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name ubiqube.com
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2825868666
+ enrollment selfsigned
+ revocation-check none
+ rsakeypair TP-self-signed-2825868666
+!
+!
+crypto pki certificate chain TP-self-signed-2825868666
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32383235 38363836 3636301E 170D3139 30353230 31303033 
+  30335A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38323538 
+  36383636 36308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100A494 DB26918B D6FF1AAA 2AAB5A97 1CA31BCE 1DAFB3D8 79EECF59 
+  31079F8B 9B5848DF FD85984B 8BFE80B7 A5B657ED 728D03C8 9336680E A888543A 
+  C9418F28 31BAF56F 1435528C 5F925945 A901FBE1 FDBBAFC2 935B2EFD 9CB3750D 
+  DB20279C 377F42F7 A9D90E7E BC5CA92D 7FB98141 3E0944DA 12F4EAEA 6BC4468B 
+  85F3AB36 A7483FF7 A859897C 797F48FF 13010CB7 D67EEA83 4602C395 970E1BD5 
+  9EDC2167 914E4360 87D75997 ED465EF7 38052DE5 7313DEEB 5B3B0130 C1F80EDF 
+  B9FAFBB1 46E42AA2 ACC4D6AB A6E8964A 071D74BC 8AEE7632 6CF7CDCB D559B199 
+  C2A820AF 779E0780 798A53AA F94B2136 F09E3B80 4E9BA9FC 0F7A5196 7EFDBC1A 
+  4BE9AED7 B9450203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 14159F33 08A9FE24 D3155EE1 183F9445 BB0360EC 
+  95301D06 03551D0E 04160414 159F3308 A9FE24D3 155EE118 3F9445BB 0360EC95 
+  300D0609 2A864886 F70D0101 05050003 82010100 6938A913 4D098039 62331781 
+  FA06708A 63993B0B E30194ED F12B96A3 35DA2C4A B1FB86EC D806A706 94E159B6 
+  8129DD7C 84CC9809 93562A48 7A508217 73002EAE 769014F3 16974868 0182DB6E 
+  062330E6 42F9DDEE 3506E95E 4F5F7F15 20749AC4 B2ECC4CC 666F2BC2 6359160B 
+  2A24525C 1CED861F 6369068A 620D3DF1 BC39397E E788D656 A5872A09 3914D128 
+  96F22DB0 1388136E 35302331 C7B1030B CD1F3706 561B2197 3AAC745B 9172216F 
+  80405196 AAAE3AB3 CBC3254B 89E0FAD1 94CD11A5
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license accept end user agreement
+license boot level ax
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+username admin password 0 ubiqube
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 10.10.10.10
+!
+interface Loopback1
+ no ip address
+!
+interface GigabitEthernet1
+ ip address 10.30.18.154 255.255.254.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ ip address 192.168.22.1 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ ip address 172.16.10.1 255.255.0.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+!
+virtual-service csr_mgmt
+!
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.31.19.254
+ip route 0.0.0.0 0.0.0.0 1.1.1.1
+ip route 0.0.0.0 0.0.0.0 1.1.1.254
+ip route 0.0.0.0 0.0.0.0 1.1.0.254
+ip route 0.0.0.0 0.0.0.0 1.1.0.255
+ip route 0.0.0.0 0.0.0.0 1.1.1.100
+ip route 0.0.0.0 0.0.0.0 1.1.0.220
+ip route 0.0.0.0 255.255.255.255 1.5.0.255
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input all
+!
+!
+!
+!
+!
+!
+end
+
+
+
